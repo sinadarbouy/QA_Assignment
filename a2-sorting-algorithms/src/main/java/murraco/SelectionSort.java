@@ -9,7 +9,7 @@ public class SelectionSort {
       for (int j = i + 1; j < arr.length; j++) {
         iMin = (arr[j].compareTo(arr[iMin]) < 0) ? j : iMin;
       }
-      swap(arr, i, iMin);
+//      swap(arr, i, iMin);
     }
   }
 
