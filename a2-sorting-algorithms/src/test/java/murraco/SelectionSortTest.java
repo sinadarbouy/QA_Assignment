@@ -1,8 +1,14 @@
 package murraco;
-import static org.junit.Assert.assertEquals;
-import java.util.Arrays;
+
 import org.junit.Test;
-import murraco.SelectionSort;
+
+import java.io.Serializable;
+import java.sql.ClientInfoStatus;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import net.jqwik.api.*;
 
 
 public class SelectionSortTest {
@@ -36,7 +42,7 @@ public class SelectionSortTest {
 
     @Test
     public void testSelectionSort_MaxAtLast() {
-        final Integer[] data = {1,2,3,4,5};
+        final Integer[] data = {1,3,2,4,5};
         SelectionSort.selectionSort(data);
         assertEquals("[1, 2, 3, 4, 5]", Arrays.toString(data));
     }
@@ -54,6 +60,35 @@ public class SelectionSortTest {
         SelectionSort.selectionSort(data);
         assertEquals("[a, b, c]", Arrays.toString(data));
     }
+
+    @Property
+    <T extends Comparable> void Test_PBT_Invariants_CheckSize_Sort(@ForAll T[] in_array) {
+        int in_size = in_array.length;
+        SelectionSort.selectionSort(in_array);
+        assertEquals(in_size, in_array.length);
+    }
+    @Property
+    <T extends Comparable> void Test_PBT_Invariants_CheckContents_Sort(@ForAll T[] in_array) {
+        T[] before_Sort = in_array;
+        SelectionSort.selectionSort(in_array);
+        boolean res= Arrays.asList(before_Sort).containsAll(Arrays.asList(in_array));
+        assertEquals(true,res);
+    }
+
+    @Property
+    <T extends Comparable> void Test_PBT_Idempotence_Sort(@ForAll T[] in_array) {
+        SelectionSort.selectionSort(in_array);
+        T[] first_Sort = in_array;
+        SelectionSort.selectionSort(in_array);
+        T[] second_Sort = in_array;
+        assertEquals(first_Sort, second_Sort);
+    }
+
+
+
+
+
+
 
 
 }
