@@ -1,6 +1,7 @@
 package murraco;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.util.Arrays;
 
@@ -111,11 +112,86 @@ public class Group5Test {
     }
 
     @Test
-    public void test15() {
-        String[] a = { "4", "3", "2", "1", "0" };
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        Heap.show(a);
-        assertEquals("4\n3\n2\n1\n0\n", outContent.toString());
+    public void testHeapsortNegativeInOrder() {
+        final Integer[] data = {-9, -5, -2, -1};
+        Heapsort.heapSort(data);
+        assertEquals("[-9, -5, -2, -1]", Arrays.toString(data));
     }
+
+    @Test
+    public void testHeapSortOrderedStrings() {
+        final String[] data = {"aa", "bb", "cc", "dd"};
+        Heapsort.heapSort(data);
+        assertEquals("[aa, bb, cc, dd]", Arrays.toString(data));
+    }
+
+    @Test
+    public void testHeapSortDifferentStrings() {
+        final String[] data = {"k", "mm", "lll", "nnnnn"};
+        Heapsort.heapSort(data);
+        assertEquals("[k, lll, mm, nnnnn]", Arrays.toString(data));
+    }
+
+    @Test
+    public void testHeapSortEmptyArray() {
+        final String[] data = {};
+        Heapsort.heapSort(data);
+        assertEquals("[]", Arrays.toString(data));
+    }
+
+    @Test
+    public void testHeapSortString() {
+        final String[] data = {"ab", "ac", "aa", "ba", "bd"};
+        Heapsort.heapSort(data);
+        assertEquals("[aa, ab, ac, ba, bd]", Arrays.toString(data));
+    }
+
+    @Test
+    public void testHeapSortSingleInteger() {
+        final Integer[] data = {0};
+        Heapsort.heapSort(data);
+        assertEquals("[0]", Arrays.toString(data));
+    }
+
+    // killed mutant line 17
+    @Test
+    public void testHeapSortTargetMaxHeapify() {
+        final Integer[] data = {1, -2, 3};
+        Heapsort.maxHeapify(data, 0, data.length - 1);
+        assertNotEquals("[1, -2, 3]", Arrays.toString(data));
+    }
+
+    @Test
+    public void testHeapSortSameIntegers() {
+        final Integer[] data = {1, 1, 1, 2, 1};
+        Heapsort.heapSort(data);
+        assertEquals("[1, 1, 1, 1, 2]", Arrays.toString(data));
+    }
+
+    @Test
+    public void testQuickSelectionCrossCheck() {
+        Integer[] data = {5, -2, 1, 3, -5, 7};
+        Quicksort.quickSort(data);
+        Integer[] firstSort = data;
+        SelectionSort.selectionSort(data);
+        Integer[] secondSort = data;
+        assertEquals(Arrays.toString(firstSort),  Arrays.toString(secondSort));
+    }
+
+    @Test
+    public void test_ByteArray_InsertionSort() {
+        final Byte[] data = {10,2,7,35};
+        SelectionSort.selectionSort(data);
+        String c = Arrays.toString(data);
+        assertEquals("[2, 7, 10, 35]", Arrays.toString(data));
+    }
+
+
+    // causes error, not handled by the algorithm - E in BICEPS (error)
+/**    @Test
+public void testHeapSortNull() {
+final Integer[] data = null;
+Heapsort.heapSort(data);
+assertNull(data);
+} */
 }
