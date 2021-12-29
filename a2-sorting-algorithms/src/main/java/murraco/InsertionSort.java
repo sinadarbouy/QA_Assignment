@@ -4,6 +4,10 @@ public class InsertionSort {
 
   // Time complexity: average O(n^2) and best O(n) - Space complexity: O(1)
   public static <T extends Comparable<T>> void insertionSort(T[] arr) {
+    if (arr == null) {
+      throw new IllegalArgumentException("array is null");
+
+    }
     for (int i = 0; i < arr.length; i++) {
       T temp = arr[i];
       int j = i;
