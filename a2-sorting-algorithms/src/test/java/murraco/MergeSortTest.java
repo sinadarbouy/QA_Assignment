@@ -51,4 +51,11 @@ public class MergeSortTest {
         assertEquals("[1, 2, 3, 5, 7, 9, 10, 15, 20, 100]", Arrays.toString(data));
     }
 
+    @Test
+    public void testMergeSortEmpty() {
+        final Integer[] data = {};
+        MergeSort.mergeSort(data);
+        assertEquals("[]", Arrays.toString(data));
+    }
+
 }
