@@ -83,11 +83,20 @@ public class SelectionSortTest {
         T[] second_Sort = in_array;
         assertEquals(first_Sort, second_Sort);
     }
+    
+  @Test
+  public void test_Type_InsertionSort() throws NoSuchMethodException {
+    Method[] methods = InsertionSort.class.getMethods();
+    String d = methods[0].getReturnType().getName();
+    boolean answer = Arrays.stream(methods).anyMatch(n -> n.getName() == "insertionSort" && n.getReturnType().getName() == "void");
+    assertEquals(true, answer);
+  }
 
-
-
-
-
+  @Test
+  public void test_Null_InsertionSort() {
+    InsertionSort.insertionSort(null);
+    assertNull("The array is empty.", null);
+  }
 
 
 
